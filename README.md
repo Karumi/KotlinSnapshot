@@ -1,29 +1,18 @@
-# KotlinSnapshot [![Build Status](https://travis-ci.org/GAumala/KotlinSnapshot.svg?branch=master)](https://travis-ci.org/GAumala/KotlinSnapshot) 
-Snapshot testing in Kotlin. The implementation of the diff algorithm used is taken from [diff-match-patch](https://github.com/google/diff-match-patch).
+# KotlinSnapshot [![Build Status](https://travis-ci.org/Karumi/KotlinSnapshot.svg?branch=master)](https://travis-ci.org/Karumi/KotlinSnapshot) 
 
+Snapshot Testing framework for Kotlin.
 
-## Install
+## What is this?
 
-Download with gradle from JitPack. First add the JitPack repository to your root `build.gradle` file: 
+Snapshot testing is an assertion strategy based on the comparision of the instances serialized using a human readable format we version as part of the repository source code.
+
+## Getting started
+
+Add the dependency to your ```build.gradle``` file: 
 
 ``` gradle
-  allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
-```
-Then on your module's `build.gradle`:
-
-``` gradle 
-dependencies {
   testImplementation 'com.github.GAumala:KotlinSnapshot:0.1'
-}
-
 ```
-
-## Usage
 
 Create an instance of `Camera` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and a `Any` object to be shot using its `toString()` implementation. Example:
 
@@ -58,10 +47,7 @@ You can also specify the path relative to the project's root where you want the 
     val camera = Camera(relativePath = "src/test/kotlin/com/my/package")
 ```
 
- 
-
 ## Updating Snapshots
-
 
 In order to update and purge snapshots from the command line, you should add a new system property called "updateSnapshots" to your `build.gradle` file:
 
@@ -93,7 +79,6 @@ Please note that in this example I used "u" but, it can be any flag, depending o
 
 On android projects the `test` task might not support the `--tests` flag to filter tests, you might need to run something like `testDebug` instead. It is not necessary to filter tests when updating, but you should do it to avoid inconsistencies.
 
-
 ## Purging Snapshots
 
 As you rename snapshots, old unused snapshots may remain in your project. You can delete all existing snapshots and rebuild the ones that are actually used using the "purgeSnapshots" system property. The setup is identical to the one used for updating snapshots.
@@ -117,8 +102,39 @@ Again android projects may need to handle this differently:
     }
 ```
 
-
 Then, when you want to delete the snapshots: 
 ``` bash
 ./gradlew test -Dp=1 --info
 ```
+
+## Linting and formatting
+
+This repository uses [ktlint](https://github.com/shyiko/ktlint). This Gradle plugin ensures the code style is homogeneous and always correct thanks to the evaluation of the code during the build execution. You can use these commands in order to check if the code changes passes the repository codestyle and to format the code automatically:
+
+```
+./gradlew ktlint // Checks if the project passes the checkstyle.
+./gradlew ktlintFormat // Formats the code for you
+```
+
+## Contributing
+
+If you would like to contribute code to this repository you can do so through GitHub by creating a new branch in the repository and sending a pull request or opening an issue. Please, remember that there are some requirements you have to pass before accepting your contribution:
+
+* Write clean code and test it.
+* The code written will have to match the product owner requirements.
+* Follow the repository code style.
+* Write good commit messages.
+* Do not send pull requests without checking if the project build is OK in the CI environment.
+* Review if your changes affects the repository documentation and update it.
+* Describe the PR content and don't hesitate to add comments to explain us why you've added or changed something.
+
+License
+-------
+
+    Copyright 2018 Karumi
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
