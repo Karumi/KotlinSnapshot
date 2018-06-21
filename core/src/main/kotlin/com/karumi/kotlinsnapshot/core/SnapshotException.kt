@@ -1,5 +1,5 @@
 package com.karumi.kotlinsnapshot.core
 
-import name.fraser.neil.plaintext.diff_match_patch
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 
-class SnapshotException(val diffs: List<diff_match_patch.Diff>, msg: String) : Exception(msg)
+class SnapshotException(val diffs: List<DiffMatchPatch.Diff>, msg: String) : Exception(msg)

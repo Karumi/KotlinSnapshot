@@ -1,12 +1,12 @@
 package com.karumi.kotlinsnapshot.core
 
-import name.fraser.neil.plaintext.diff_match_patch
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import java.io.File
 import java.nio.file.Paths
 
 class Camera(relativePath: String) {
     private val snapshotDir: File
-    private val dmp = diff_match_patch()
+    private val dmp = DiffMatchPatch()
 
     init {
         snapshotDir = createSnapshotDir(relativePath)
@@ -19,13 +19,13 @@ class Camera(relativePath: String) {
         System.getProperty("updateSnapshots") == "1"
     }
 
-    private fun differsFromSnapshot(diffs: List<diff_match_patch.Diff>): Boolean =
-        diffs.find { diff -> diff.operation != diff_match_patch.Operation.EQUAL } != null
+    private fun differsFromSnapshot(diffs: List<DiffMatchPatch.Diff>): Boolean =
+        diffs.find { diff -> diff.operation != DiffMatchPatch.Operation.EQUAL } != null
 
     private fun matchValueWithExistingSnapshot(snapshotFile: File, value: Any) {
         val snapshotContents = snapshotFile.readText()
         val valueString = value.toString()
-        val diffs = dmp.diff_main(snapshotContents, valueString)
+        val diffs = dmp.diffMain(snapshotContents, valueString)
         val hasChanged = differsFromSnapshot(diffs)
         if (hasChanged && shouldUpdateSnapshots)
             writeSnapshot(true, snapshotFile, value)
