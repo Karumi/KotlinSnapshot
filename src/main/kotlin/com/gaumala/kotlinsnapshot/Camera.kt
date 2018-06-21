@@ -17,14 +17,14 @@ class Camera(relativePath: String) {
         purgeSnapshotsIfNeeded(snapshotDir)
     }
 
-    constructor(): this("")
+    constructor() : this("")
 
     private val shouldUpdateSnapshots: Boolean by lazy {
         System.getProperty("updateSnapshots") == "1"
     }
 
     private fun differsFromSnapshot(diffs: List<diff_match_patch.Diff>): Boolean =
-            diffs.find { diff -> diff.operation != diff_match_patch.Operation.EQUAL } != null
+        diffs.find { diff -> diff.operation != diff_match_patch.Operation.EQUAL } != null
 
     private fun matchValueWithExistingSnapshot(snapshotFile: File, value: Any) {
         val snapshotContents = snapshotFile.readText()
@@ -37,15 +37,13 @@ class Camera(relativePath: String) {
             val msg = DiffPrinter.toReadableConsoleMessage(snapshotFile.name, diffs)
             throw SnapshotException(diffs, msg)
         }
-
-
     }
 
     private fun writeSnapshot(update: Boolean, snapshotFile: File, value: Any) {
         snapshotFile.writeText(value.toString())
         val fileName = "\"${snapshotFile.name}\""
         val msg = if (update) "${Term.green("1 snapshot, $fileName,")} updated."
-                  else "${Term.green("1 snapshot, $fileName,")} written."
+        else "${Term.green("1 snapshot, $fileName,")} written."
         println(msg)
     }
 
@@ -60,7 +58,7 @@ class Camera(relativePath: String) {
     private companion object {
         private val purgedDirectories = HashSet<String>()
         fun createSnapshotDir(relativePath: String): File {
-            val dir = System.getProperty("user.dir");
+            val dir = System.getProperty("user.dir")
             val snapshotDirPath = Paths.get(dir, relativePath, "__snapshot__").toString()
             val snapshotDir = File(snapshotDirPath)
             snapshotDir.mkdirs()
@@ -69,8 +67,8 @@ class Camera(relativePath: String) {
 
         fun purgeSnapshotsIfNeeded(snapshotDir: File) {
             val pathToPurge = snapshotDir.absolutePath
-            val shouldPurge = System.getProperty("purgeSnapshots") == "1"
-                                && ! purgedDirectories.contains(pathToPurge)
+            val shouldPurge = System.getProperty("purgeSnapshots") == "1" &&
+                !purgedDirectories.contains(pathToPurge)
 
             if (shouldPurge) {
                 snapshotDir.deleteAllContainedFiles()
