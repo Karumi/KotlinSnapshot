@@ -112,8 +112,18 @@ Then, when you want to delete the snapshots:
 This repository uses [ktlint](https://github.com/shyiko/ktlint). This Gradle plugin ensures the code style is homogeneous and always correct thanks to the evaluation of the code during the build execution. You can use these commands in order to check if the code changes passes the repository codestyle and to format the code automatically:
 
 ```
-./gradlew ktlint // Checks if the project passes the checkstyle.
-./gradlew ktlintFormat // Formats the code for you
+./gradlew ktlint //Checks if the project passes the checkstyle.
+./gradlew ktlintFormat //Formats the code for you
+```
+
+## Executing tests
+
+This project contains some tests written using JUnit. You can easily run the tests by executing the following commands:
+
+```
+./gradlew test //Run every test.
+./gradlew test -t //Run every test using the watch mode.
+./gradlew test --tests "com.xyz.b.module.TestClass.testToRun" //Run a single test
 ```
 
 ## Contributing
