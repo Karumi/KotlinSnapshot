@@ -1,10 +1,7 @@
-package com.gaumala.kotlinsnapshot
+package com.karumi.kotlinsnapshot.core
 
 import java.io.File
 
-/**
- * Created by gabriel on 3/25/18.
- */
 internal fun File.deleteAllContainedFiles() {
     this.listFiles().forEach { it.delete() }
 }

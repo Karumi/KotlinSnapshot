@@ -1,8 +1,5 @@
-package com.gaumala.kotlinsnapshot
+package com.karumi.kotlinsnapshot.core
 
-/**
- * Created by gabriel on 3/24/18.
- */
 internal object Term {
     private val RESET = "\u001B[0m"
     private val GREEN = "\u001B[32m"

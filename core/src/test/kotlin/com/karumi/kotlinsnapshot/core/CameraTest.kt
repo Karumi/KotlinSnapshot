@@ -1,4 +1,4 @@
-package com.gaumala.kotlinsnapshot
+package com.karumi.kotlinsnapshot.core
 
 import org.junit.Test
 

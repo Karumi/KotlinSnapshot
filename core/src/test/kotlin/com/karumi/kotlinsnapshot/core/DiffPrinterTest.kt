@@ -1,11 +1,7 @@
-package com.gaumala.kotlinsnapshot
+package com.karumi.kotlinsnapshot.core
 
 import name.fraser.neil.plaintext.diff_match_patch
 import org.junit.Test
-
-/**
- * Created by gabriel on 3/25/18.
- */
 
 class DiffPrinterTest {
     val dmp = diff_match_patch()

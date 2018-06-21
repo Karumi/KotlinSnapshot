@@ -1,12 +1,8 @@
-package com.gaumala.kotlinsnapshot
+package com.karumi.kotlinsnapshot.core
 
 import name.fraser.neil.plaintext.diff_match_patch
 import java.io.File
 import java.nio.file.Paths
-
-/**
- * Created by gabriel on 3/24/18.
- */
 
 class Camera(relativePath: String) {
     private val snapshotDir: File

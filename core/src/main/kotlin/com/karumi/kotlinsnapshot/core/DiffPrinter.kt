@@ -1,11 +1,7 @@
-package com.gaumala.kotlinsnapshot
+package com.karumi.kotlinsnapshot.core
 
 import name.fraser.neil.plaintext.diff_match_patch
 import java.util.LinkedList
-
-/**
- * Created by gabriel on 3/25/18.
- */
 
 internal object DiffPrinter {
     private val dmp = diff_match_patch()
