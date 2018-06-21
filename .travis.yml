@@ -1,4 +1,4 @@
 language: java
 
 script:
-- ./gradlew clean test --info
+- ./gradlew clean ktlint test
