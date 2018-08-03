@@ -12,6 +12,12 @@ class InferenceNameTest {
         val pedro = Developer("Pedro", 3)
         pedro.matchWithSnapshot()
     }
+
+    @Test
+    fun `the snap test name will be inferred even if uses spaces`() {
+        val toni = Developer("Toni", 1)
+        camera.matchWithSnapshot(toni)
+    }
 }
 
 class InferenceNameSpec {
