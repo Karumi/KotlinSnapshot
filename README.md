@@ -14,26 +14,32 @@ Add the dependency to your ```build.gradle``` file:
   testImplementation 'com.karumi:kotlinsnapshot:0.0.1'
 ```
 
-Create an instance of `Camera` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and a `Any` object to be shot using its `toString()` implementation. The name of the snapshot is not mandatory, if you don't specify it as the first ``matchWithSnapshot`` param the library will try to infer it from the test execution context. Example:
+Invoke the extension function named ``matchWithSnapshot`` from any instance. The name of the snapshot is not mandatory, if you don't specify it as the first ``matchWithSnapshot`` param the library will try to infer it from the test execution context. Example:
 
 ``` kotlin
 class NetworkTest {
 
-    private val kotlinSnapshot = KotlinSnapshot()
     private val networkClient = MyNetworkClient()
 
     @Test
     fun shouldFetchDataFromNetwork() {
         val myData = networkClient.fetchData()
-        kotlinSnapshot.matchWithSnapshot("should fetch data from network", myData)
+        myData.matchWithSnapshot()
     }
 
     @Test
-    fun shouldFetchDataFromNetwork() {
+    fun shouldFetchDataFromNetworkWithSpecificSnapshotName() {
         val myData = networkClient.fetchData()
-        kotlinSnapshot.matchWithSnapshot(myData)
+        myData.matchWithSnapshot("should fetch the data from the network")
     }
+
 ```
+
+If you need to customize the snapshots folder path you can create an instance of `KotlinSnapshot` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and a `Any` object to be shot using its `toString()` implementation.
+
+``` kotlin
+    val kotlinSnapshot = KotlinSnapshot(relativePath = "src/test/kotlin/com/my/package")
+``` 
 
 After you run the test for the first time, a new  snapshot will be written in the `__snapshot__` directory of the root of your project. The written snapshot for this example would look like this:
 
@@ -45,13 +51,6 @@ $ cat __snapshot__/should\ fetch\ data\ from\ network.snap
 On subsequent runs, the value will be compared with the snapshot stored in the filesystem if the are not equal, your test will fail. To see the detailed error you may need to run your tests with `./gradlew test --info`. You should see something like this:
 
 ![Snapshot Error](https://user-images.githubusercontent.com/5729175/37878769-98ef26ae-3033-11e8-8066-ea1e49630de3.png)
-
-You can also specify the path relative to the project's root where you want the snapshot dir to be placed using `Camera`'s constructor:
-
-
-``` kotlin
-    val kotlinSnapshot = KotlinSnapshot(relativePath = "src/test/kotlin/com/my/package")
-```
 
 ## Updating Snapshots
 
