@@ -14,7 +14,7 @@ Add the dependency to your ```build.gradle``` file:
   testImplementation 'com.github.GAumala:KotlinSnapshot:0.1'
 ```
 
-Create an instance of `Camera` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and a `Any` object to be shot using its `toString()` implementation. Example:
+Create an instance of `Camera` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and a `Any` object to be shot using its `toString()` implementation. The name of the snapshot is not mandatory, if you don't specify it as the first ``matchWithSnapshot`` param the library will try to infer it from the test execution context. Example:
 
 ``` kotlin
 class NetworkTest {
@@ -26,6 +26,12 @@ class NetworkTest {
     fun shouldFetchDataFromNetwork() {
         val myData = networkClient.fetchData()
         camera.matchWithSnapshot("should fetch data from network", myData)
+    }
+
+    @Test
+    fun shouldFetchDataFromNetwork() {
+        val myData = networkClient.fetchData()
+        camera.matchWithSnapshot(myData)
     }
 ```
 
