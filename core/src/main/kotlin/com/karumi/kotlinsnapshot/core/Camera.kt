@@ -1,5 +1,6 @@
 package com.karumi.kotlinsnapshot.core
 
+import com.karumi.kotlinsnapshot.core.exceptions.TestNameNotFoundException
 import name.fraser.neil.plaintext.diff_match_patch
 import java.io.File
 import java.nio.file.Paths
@@ -14,6 +15,22 @@ class Camera(relativePath: String) {
     }
 
     constructor() : this("")
+
+    fun matchWithSnapshot(value: Any) {
+        matchWithSnapshot(null, value)
+    }
+
+    fun matchWithSnapshot(snapshotName: String? = null, value: Any) {
+        val snapshotFileName = if (snapshotName != null)
+            "$snapshotName.snap"
+        else
+            "${extractTestCaseName()}.snap"
+        val snapshotFile = File(snapshotDir, snapshotFileName)
+        if (snapshotFile.exists())
+            matchValueWithExistingSnapshot(snapshotFile, value)
+        else
+            writeSnapshot(false, snapshotFile, value)
+    }
 
     private val shouldUpdateSnapshots: Boolean by lazy {
         System.getProperty("updateSnapshots") == "1"
@@ -43,14 +60,6 @@ class Camera(relativePath: String) {
         println(msg)
     }
 
-    fun matchWithSnapshot(snapshotName: String, value: Any) {
-        val snapshotFile = File(snapshotDir, "$snapshotName.snap")
-        if (snapshotFile.exists())
-            matchValueWithExistingSnapshot(snapshotFile, value)
-        else
-            writeSnapshot(false, snapshotFile, value)
-    }
-
     private companion object {
         private val purgedDirectories = HashSet<String>()
         fun createSnapshotDir(relativePath: String): File {
@@ -71,5 +80,21 @@ class Camera(relativePath: String) {
                 purgedDirectories.add(pathToPurge)
             }
         }
+    }
+
+    private fun extractTestCaseName(): String {
+        val stackTrace = Throwable().stackTrace
+        val testCaseTrace = stackTrace.toList().firstOrNull { trace ->
+            val completeClassName = trace.className.toLowerCase()
+            val isATestClass = completeClassName.contains("test")
+            val isASpecClass = completeClassName.contains("spec")
+            isATestClass || isASpecClass
+        }
+        if (testCaseTrace != null) {
+            return "${testCaseTrace.className}_${testCaseTrace.methodName}"
+        } else {
+            throw TestNameNotFoundException("Kotlin Snapshot library couldn't find the name of the test. Review if the test case file or the spec file contains the word test or spec, this is a requirement needed to use Kotlin Snapshot")
+        }
+
     }
 }

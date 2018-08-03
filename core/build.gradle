@@ -45,6 +45,11 @@ test {
     systemProperty "updateSnapshots", System.getProperty("u")
     // purge snapshots via command line
     systemProperty "purgeSnapshots", System.getProperty("p")
+
+    testLogging {
+        showStandardStreams = true
+        events = ["passed", "failed", "skipped"]
+    }
 }
 
 task ktlint(type: JavaExec, group: "verification") {
