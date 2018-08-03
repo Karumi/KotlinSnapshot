@@ -90,15 +90,18 @@ class Camera(relativePath: String) {
                 .substring(0, completeClassName.lastIndexOf("."))
             val isAJUnitClass = packageName
                 .contains("junit")
+            val isAGradleClass = packageName.contains("org.gradle.api.internal.tasks.testing")
             val isATestClass = completeClassName.contains("test")
             val isASpecClass = completeClassName.contains("spec")
-            (isATestClass || isASpecClass) && !isAJUnitClass
+            (isATestClass || isASpecClass) && !isAJUnitClass && !isAGradleClass
         }
         if (testCaseTrace != null) {
             return "${testCaseTrace.className}_${testCaseTrace.methodName}"
         } else {
-            throw TestNameNotFoundException("Kotlin Snapshot library couldn't find the name of the test. Review if the test case file or the spec file contains the word test or spec, this is a requirement needed to use Kotlin Snapshot")
+            throw TestNameNotFoundException("Kotlin Snapshot library couldn't find the name " +
+                "of the test. Review if the test case file or the spec file contains the word " +
+                "test or spec or specify a snapshot name manually, this is a requirement needed " +
+                "to use Kotlin Snapshot")
         }
-
     }
 }

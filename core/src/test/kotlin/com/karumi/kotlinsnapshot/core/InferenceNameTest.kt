@@ -8,7 +8,8 @@ class InferenceNameTest {
     private val camera = Camera()
 
     @Test
-    fun the_snapshot_test_name_will_be_inferred_in_test_cases_named_with_test_if_it_is_not_specified() {
+    fun the_snap_test_name_will_be_inferred_in_test_cases_named_with_test_if_it_is_not_specified(
+    ) {
         val pedro = Developer("Pedro", 3)
         camera.matchWithSnapshot(pedro)
     }
@@ -18,7 +19,8 @@ class InferenceNameSpec {
     private val camera = Camera()
 
     @Test
-    fun the_snapshot_test_name_will_be_inferred_in_test_cases_named_with_spec_if_it_is_not_specified() {
+    fun the_snap_test_name_will_be_inferred_in_test_cases_named_with_spec_if_it_is_not_specified(
+    ) {
         val pedro = Developer("Sergio", 2)
         camera.matchWithSnapshot(pedro)
     }
@@ -34,4 +36,4 @@ class InvalidClassName {
     }
 }
 
-data class Developer(val name: String,val yearsInTheCompany: Int)
+data class Developer(val name: String, val yearsInTheCompany: Int)
