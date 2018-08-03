@@ -1,10 +1,10 @@
 package com.karumi.kotlinsnapshot.core
 
-import name.fraser.neil.plaintext.diff_match_patch
+import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import org.junit.Test
 
 class DiffPrinterTest {
-    val dmp = diff_match_patch()
+    val dmp = DiffMatchPatch()
     val camera = Camera()
 
     @Test
@@ -13,7 +13,7 @@ class DiffPrinterTest {
         val secondJson = """{"name":"andres","id":5}"""
 
         val snapshotName = "should print diff to a readable console message"
-        val diffs = dmp.diff_main(firstJson, secondJson)
+        val diffs = dmp.diffMain(firstJson, secondJson)
         val msg = DiffPrinter.toReadableConsoleMessage(snapshotName, diffs)
 
         camera.matchWithSnapshot(snapshotName = snapshotName, value = msg)

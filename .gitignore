@@ -3,4 +3,4 @@ build/
 .gradle/
 local.properties
 *.iml
-core/out/
+core/out
