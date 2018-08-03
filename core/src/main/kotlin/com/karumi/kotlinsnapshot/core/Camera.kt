@@ -83,7 +83,7 @@ class Camera(relativePath: String) {
     }
 
     private fun extractTestCaseName(): String {
-        val stackTrace = Throwable().stackTrace
+        val stackTrace = Thread.currentThread().stackTrace
         val testCaseTrace = stackTrace.toList().firstOrNull { trace ->
             val completeClassName = trace.className.toLowerCase()
             val packageName = completeClassName
