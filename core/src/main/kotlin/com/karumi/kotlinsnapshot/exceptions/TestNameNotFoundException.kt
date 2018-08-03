@@ -1,3 +1,3 @@
-package com.karumi.kotlinsnapshot.core.exceptions
+package com.karumi.kotlinsnapshot.exceptions
 
 class TestNameNotFoundException(message: String) : RuntimeException(message)
