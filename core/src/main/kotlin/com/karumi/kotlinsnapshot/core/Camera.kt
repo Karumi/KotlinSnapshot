@@ -86,9 +86,13 @@ class Camera(relativePath: String) {
         val stackTrace = Throwable().stackTrace
         val testCaseTrace = stackTrace.toList().firstOrNull { trace ->
             val completeClassName = trace.className.toLowerCase()
+            val packageName = completeClassName
+                .substring(0, completeClassName.lastIndexOf("."))
+            val isAJUnitClass = packageName
+                .contains("junit")
             val isATestClass = completeClassName.contains("test")
             val isASpecClass = completeClassName.contains("spec")
-            isATestClass || isASpecClass
+            (isATestClass || isASpecClass) && !isAJUnitClass
         }
         if (testCaseTrace != null) {
             return "${testCaseTrace.className}_${testCaseTrace.methodName}"
