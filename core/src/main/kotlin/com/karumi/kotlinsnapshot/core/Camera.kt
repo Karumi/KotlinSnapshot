@@ -1,11 +1,11 @@
 package com.karumi.kotlinsnapshot.core
 
-import com.karumi.kotlinsnapshot.core.exceptions.TestNameNotFoundException
+import com.karumi.kotlinsnapshot.exceptions.TestNameNotFoundException
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import java.io.File
 import java.nio.file.Paths
 
-class Camera(relativePath: String) {
+class Camera(relativePath: String = "") {
     private val snapshotDir: File
     private val dmp = DiffMatchPatch()
 
@@ -13,8 +13,6 @@ class Camera(relativePath: String) {
         snapshotDir = createSnapshotDir(relativePath)
         purgeSnapshotsIfNeeded(snapshotDir)
     }
-
-    constructor() : this("")
 
     fun matchWithSnapshot(value: Any) {
         matchWithSnapshot(null, value)

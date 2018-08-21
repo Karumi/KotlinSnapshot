@@ -1,11 +1,11 @@
 package com.karumi.kotlinsnapshot.core
 
+import com.karumi.kotlinsnapshot.matchWithSnapshot
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import org.junit.Test
 
 class DiffPrinterTest {
     val dmp = DiffMatchPatch()
-    val camera = Camera()
 
     @Test
     fun should_print_diff_to_a_readable_console_message() {
@@ -16,6 +16,6 @@ class DiffPrinterTest {
         val diffs = dmp.diffMain(firstJson, secondJson)
         val msg = DiffPrinter.toReadableConsoleMessage(snapshotName, diffs)
 
-        camera.matchWithSnapshot(snapshotName = snapshotName, value = msg)
+        msg.matchWithSnapshot(snapshotName)
     }
 }

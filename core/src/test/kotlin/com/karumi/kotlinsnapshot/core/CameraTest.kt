@@ -1,17 +1,16 @@
 package com.karumi.kotlinsnapshot.core
 
+import com.karumi.kotlinsnapshot.matchWithSnapshot
 import org.junit.Test
 
 class CameraTest {
-
-    private val camera = Camera()
 
     data class User(val id: Int, val name: String)
 
     @Test
     fun should_take_snapshots_of_data_classes() {
         val u1 = User(1, "gabriel")
-        camera.matchWithSnapshot("should take snapshot of a data class", u1)
+        u1.matchWithSnapshot("should take snapshot of a data class")
     }
 
     @Test
@@ -20,7 +19,7 @@ class CameraTest {
             User(1, "gabriel"),
             User(2, "andres"),
             User(3, "miguel"))
-        camera.matchWithSnapshot("should take snapshot of a list", list)
+        list.matchWithSnapshot("should take snapshot of a list")
     }
 
     @Test
@@ -29,12 +28,12 @@ class CameraTest {
             Pair(1, User(1, "gabriel")),
             Pair(2, User(2, "andres")),
             Pair(3, User(3, "miguel")))
-        camera.matchWithSnapshot("should take snapshot of a map", map)
+        map.matchWithSnapshot("should take snapshot of a map")
     }
 
     @Test
     fun should_take_snapshots_of_json_strings() {
         val json = """{"name":"gabriel","id":5}"""
-        camera.matchWithSnapshot("should take snapshot of a json string", json)
+        json.matchWithSnapshot("should take snapshot of a json string")
     }
 }
