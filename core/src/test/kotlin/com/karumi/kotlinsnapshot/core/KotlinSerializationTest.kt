@@ -3,7 +3,6 @@ package com.karumi.kotlinsnapshot.core
 import com.karumi.kotlinsnapshot.KotlinSnapshot
 import org.junit.Test
 
-
 class KotlinSerializationTest {
 
     private val snap = KotlinSnapshot(KotlinSerialization())
@@ -128,7 +127,7 @@ class KotlinSerializationTest {
         snap.matchWithSnapshot(kotlinObject)
     }
 
-    enum class Primitives { INT, DOUBLE, LONG}
+    enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
 
@@ -144,4 +143,3 @@ class KotlinSerializationTest {
         class BadRequest(val error: String)
     }
 }
-
