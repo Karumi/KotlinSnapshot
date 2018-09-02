@@ -34,7 +34,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.bitbucket.cowwoc.diff-match-patch:diff-match-patch:1.0"
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
 apply plugin: 'maven'
