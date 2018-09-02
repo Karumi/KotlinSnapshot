@@ -5,7 +5,10 @@ import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import java.io.File
 import java.nio.file.Paths
 
-class Camera(relativePath: String = "") {
+class Camera<in A>(
+    private val serializationModule: SerializationModule<A>,
+    relativePath: String = ""
+) {
     private val snapshotDir: File
     private val dmp = DiffMatchPatch()
 
@@ -14,7 +17,7 @@ class Camera(relativePath: String = "") {
         purgeSnapshotsIfNeeded(snapshotDir)
     }
 
-    fun matchWithSnapshot(value: Any, snapshotName: String? = null) {
+    fun matchWithSnapshot(value: A, snapshotName: String? = null) {
         val snapshotFileName = if (snapshotName != null)
             "$snapshotName.snap"
         else
@@ -33,9 +36,9 @@ class Camera(relativePath: String = "") {
     private fun differsFromSnapshot(diffs: List<DiffMatchPatch.Diff>): Boolean =
         diffs.find { diff -> diff.operation != DiffMatchPatch.Operation.EQUAL } != null
 
-    private fun matchValueWithExistingSnapshot(snapshotFile: File, value: Any) {
+    private fun matchValueWithExistingSnapshot(snapshotFile: File, value: A) {
         val snapshotContents = snapshotFile.readText()
-        val valueString = value.toString()
+        val valueString = serializationModule.serialize(value)
         val diffs = dmp.diffMain(snapshotContents, valueString)
         val hasChanged = differsFromSnapshot(diffs)
         if (hasChanged && shouldUpdateSnapshots)
@@ -46,8 +49,9 @@ class Camera(relativePath: String = "") {
         }
     }
 
-    private fun writeSnapshot(update: Boolean, snapshotFile: File, value: Any) {
-        snapshotFile.writeText(value.toString())
+    private fun writeSnapshot(update: Boolean, snapshotFile: File, value: A) {
+        val serializedValue = serializationModule.serialize(value)
+        snapshotFile.writeText(serializedValue)
         val fileName = "\"${snapshotFile.name}\""
         val msg = if (update) "${Term.green("1 snapshot, $fileName,")} updated."
         else "${Term.green("1 snapshot, $fileName,")} written."

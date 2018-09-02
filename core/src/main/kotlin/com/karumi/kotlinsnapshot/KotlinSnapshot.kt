@@ -1,17 +1,28 @@
 package com.karumi.kotlinsnapshot
 
 import com.karumi.kotlinsnapshot.core.Camera
+import com.karumi.kotlinsnapshot.core.SerializationModule
+import com.karumi.kotlinsnapshot.core.KotlinSerialization
 
-class KotlinSnapshot(snapshotsFolder: String = "") {
+class KotlinSnapshot<in A>(
+    serializationModule: SerializationModule<A>,
+    snapshotsFolder: String = ""
+) {
+    companion object {
+        operator fun invoke(snapshotsFolder: String = ""): KotlinSnapshot<Any> = KotlinSnapshot(
+            KotlinSerialization(),
+            snapshotsFolder
+        )
+    }
 
-    private val camera = Camera(snapshotsFolder)
+    private val camera = Camera(serializationModule, snapshotsFolder)
 
-    fun matchWithSnapshot(value: Any, snapshotName: String? = null) {
+    fun matchWithSnapshot(value: A, snapshotName: String? = null) {
         camera.matchWithSnapshot(value, snapshotName)
     }
 }
 
-private val camera = Camera()
+private val camera = Camera(KotlinSerialization())
 
 fun Any.matchWithSnapshot(snapshotName: String? = null) {
     camera.matchWithSnapshot(this, snapshotName)
