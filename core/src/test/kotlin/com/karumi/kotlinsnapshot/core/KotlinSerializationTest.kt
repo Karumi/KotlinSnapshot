@@ -137,8 +137,8 @@ class KotlinSerializationTest {
         )
         snap.matchWithSnapshot(mobileTeam)
     }
-    
-    @Test 
+
+    @Test
     fun `should serialize a LinkedHashMap`() {
         val developerByTeamMap = mapOf(
             "product" to listOf(User(1, "gabriel")),
@@ -165,8 +165,7 @@ class KotlinSerializationTest {
         val user = UserWithOptionalName(1, null)
         snap.matchWithSnapshot(user)
     }
-    
-    
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
