@@ -89,6 +89,7 @@ class KotlinSerializationTest {
             "mobile" to mobileTeam
         )
         snap.matchWithSnapshot(developerByTeam)
+        snap.matchWithSnapshot(developerByTeam.toSortedMap())
     }
 
     @Test
@@ -136,13 +137,36 @@ class KotlinSerializationTest {
         )
         snap.matchWithSnapshot(mobileTeam)
     }
+    
+    @Test 
+    fun `should serialize a LinkedHashMap`() {
+        val developerByTeamMap = mapOf(
+            "product" to listOf(User(1, "gabriel")),
+            "sales" to arrayOf(User(1, "ramon")),
+            "mobile" to Developer("miguel", 3)
+        )
+        val developerByTeamLinked = linkedMapOf(
+            "product" to listOf(User(1, "gabriel")),
+            "sales" to arrayOf(User(1, "ramon")),
+            "mobile" to Developer("miguel", 3)
+        )
+        val developerByTeamSorted = sortedMapOf(
+            "product" to listOf(User(1, "gabriel")),
+            "sales" to arrayOf(User(1, "ramon")),
+            "mobile" to Developer("miguel", 3)
+        )
+        snap.matchWithSnapshot(developerByTeamMap)
+        snap.matchWithSnapshot(developerByTeamLinked)
+        snap.matchWithSnapshot(developerByTeamLinked)
+    }
 
     @Test
     fun `should serialize a null object when is a member field`() {
         val user = UserWithOptionalName(1, null)
         snap.matchWithSnapshot(user)
     }
-
+    
+    
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)

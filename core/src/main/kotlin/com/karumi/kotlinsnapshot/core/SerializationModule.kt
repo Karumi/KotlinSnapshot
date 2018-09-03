@@ -43,9 +43,11 @@ class KotlinSerialization : SerializationModule<Any> {
             serialize(it)
         }
 
-    private fun mapToString(map: Map<*, *>): String = map.mapValues {
-        serialize(it.value)
-    }.toString()
+    private fun mapToString(map: Map<*, *>): String = map
+        .mapKeys { serialize(it.key) }
+        .toSortedMap()
+        .mapValues { serialize(it.value) }
+        .toString()
 
     private fun pairToString(value: Pair<*, *>): String =
         "(${serialize(value.first)}, ${serialize(value.second as Any)})"
