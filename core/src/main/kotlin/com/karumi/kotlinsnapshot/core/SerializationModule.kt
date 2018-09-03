@@ -29,9 +29,11 @@ class KotlinSerialization : SerializationModule<Any> {
     private fun toString(value: Any): String {
         val anyClass = value::class
         val className = anyClass.simpleName
-        val fieldValueList = anyClass.memberProperties.joinToString { field ->
-            getFieldValuePair(value, field)
-        }
+        val fieldValueList = anyClass.memberProperties
+            .sortedBy { it.name }
+            .joinToString { field ->
+                getFieldValuePair(value, field)
+            }
         val classBody = addParenthesesIfNotEmpty(fieldValueList)
         return "$className$classBody"
     }

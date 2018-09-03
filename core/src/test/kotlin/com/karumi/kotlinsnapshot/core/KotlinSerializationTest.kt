@@ -127,6 +127,16 @@ class KotlinSerializationTest {
         snap.matchWithSnapshot(kotlinObject)
     }
 
+    @Test
+    fun `should serialize a kotlin Set`() {
+        val mobileTeam = setOf(
+            Developer("gabriel", 3),
+            Developer("andres", 3),
+            Developer("miguel", 3)
+        )
+        snap.matchWithSnapshot(mobileTeam)
+    }
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
