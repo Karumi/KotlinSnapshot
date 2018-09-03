@@ -8,7 +8,7 @@ Snapshot testing is an assertion strategy based on the comparision of the instan
 
 ## Getting started
 
-Add the our Gradle Plugin to your ```build.gradle``` file: 
+Add our Gradle Plugin to your ```build.gradle``` file: 
 
 ``` gradle
   buildscript {
@@ -63,7 +63,7 @@ On subsequent runs, the value will be compared with the snapshot stored in the f
 
 ## Updating Snapshots
 
-In order to update and purge snapshots from the command line, you just need to execute one command:
+In order to update snapshots from the command line, you just need to execute one command:
 
 ```
 ./gradlew updateSnapshots

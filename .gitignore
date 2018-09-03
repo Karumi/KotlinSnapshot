@@ -5,3 +5,5 @@ local.properties
 *.iml
 core/out
 repo
+.project
+.settings

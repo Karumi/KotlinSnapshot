@@ -16,7 +16,7 @@ sealed class KotlinSnapshotTask : DefaultTask() {
         }
 
         init {
-            description = "Run your tests updating all snapshots."
+            description = "Run all tests updating snapshots when differences are found."
         }
 
         @TaskAction
@@ -31,7 +31,7 @@ sealed class KotlinSnapshotTask : DefaultTask() {
         }
 
         init {
-            description = "Delete all your snapshots."
+            description = "Delete all snapshots and update them all"
         }
 
         @TaskAction
