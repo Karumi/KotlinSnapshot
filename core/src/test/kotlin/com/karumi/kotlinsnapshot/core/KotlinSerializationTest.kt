@@ -137,9 +137,16 @@ class KotlinSerializationTest {
         snap.matchWithSnapshot(mobileTeam)
     }
 
+    @Test
+    fun `should serialize a null object when is a member field`() {
+        val user = UserWithOptionalName(1, null)
+        snap.matchWithSnapshot(user)
+    }
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
+    class UserWithOptionalName(val id: Int, val name: String?)
 
     data class Developer(val name: String, val githubStars: Int)
 
