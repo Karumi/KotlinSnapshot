@@ -46,7 +46,7 @@ class KotlinSerialization : SerializationModule<Any> {
     }.toString()
 
     private fun pairToString(value: Pair<*, *>): String =
-        "(${value.first}, ${serialize(value.second as Any)})"
+        "(${serialize(value.first)}, ${serialize(value.second as Any)})"
 
     private fun getFieldValuePair(value: Any, field: KProperty1<out Any, Any?>): String =
         if (field.visibility == KVisibility.PUBLIC) {
