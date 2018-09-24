@@ -115,7 +115,7 @@ This project contains some tests written using JUnit. You can easily run the tes
 
 ## Customizing serializations
 
-KotlinSnapshot uses a custom serialization for the basic types. If for some reason you want to implement your custom serializer you can implement your own ``SerializationModule``. If you want to reuse part of the serialization we provide you can compose your serializer as follows:
+KotlinSnapshot uses custom serialization for the basic types. If, for some reason, you want to implement your custom serializer you can create your own ``SerializationModule``. If you still want to reuse part of the serialization we provide you can compose your serializer as follows:
 
 ```kotlin
 class CustomKotlinSerialization : SerializationModule {
