@@ -12,6 +12,7 @@ import java.util.TimeZone
 class KotlinSerializationTest {
 
     private val snap = KotlinSnapshot(KotlinSerialization())
+    private val customSnap = KotlinSnapshot(CustomKotlinSerialization())
 
     @Test
     fun `should serialize a primitive value`() {
@@ -200,6 +201,12 @@ class KotlinSerializationTest {
         dateTime.matchWithSnapshot()
     }
 
+    @Test
+    fun `should let the user customize the serializer behavior`() {
+        val localDate = LocalDate.parse("2007-12-03")
+        customSnap.matchWithSnapshot(localDate)
+    }
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
@@ -215,5 +222,15 @@ class KotlinSerializationTest {
         object NotFound : NetworkError()
         data class InternalServerError(val message: String) : NetworkError()
         class BadRequest(val error: String)
+    }
+
+    class CustomKotlinSerialization : SerializationModule {
+
+        private val kotlinSerialization = KotlinSerialization()
+
+        override fun serialize(value: Any?): String = when {
+            value is LocalDate -> "custom serialization configured"
+            else -> kotlinSerialization.serialize(value)
+        }
     }
 }

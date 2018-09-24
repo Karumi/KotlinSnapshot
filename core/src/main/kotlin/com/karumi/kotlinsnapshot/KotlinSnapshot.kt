@@ -5,8 +5,8 @@ import com.karumi.kotlinsnapshot.core.KotlinSerialization
 import com.karumi.kotlinsnapshot.core.SerializationModule
 import com.karumi.kotlinsnapshot.core.TestCaseExtractor
 
-class KotlinSnapshot<in A>(
-    serializationModule: SerializationModule<A>,
+class KotlinSnapshot(
+    serializationModule: SerializationModule = KotlinSerialization(),
     testClassAsDirectory: Boolean = false,
     snapshotsFolder: String = ""
 ) {
@@ -14,7 +14,7 @@ class KotlinSnapshot<in A>(
         operator fun invoke(
             snapshotsFolder: String = "",
             testClassAsDirectory: Boolean = false
-        ): KotlinSnapshot<Any> = KotlinSnapshot(
+        ): KotlinSnapshot = KotlinSnapshot(
             KotlinSerialization(),
             testClassAsDirectory,
             snapshotsFolder
@@ -28,7 +28,7 @@ class KotlinSnapshot<in A>(
         snapshotsFolder
     )
 
-    fun matchWithSnapshot(value: A, snapshotName: String? = null) {
+    fun matchWithSnapshot(value: Any, snapshotName: String? = null) {
         camera.matchWithSnapshot(value, snapshotName)
     }
 }

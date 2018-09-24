@@ -5,8 +5,8 @@ import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import java.io.File
 import java.nio.file.Paths
 
-internal class Camera<in A>(
-    private val serializationModule: SerializationModule<A>,
+internal class Camera (
+    private val serializationModule: SerializationModule,
     private val extractor: TestCaseExtractor,
     private val testClassAsDirectory: Boolean = false,
     private val relativePath: String = ""
@@ -19,7 +19,7 @@ internal class Camera<in A>(
         purgeSnapshotsIfNeeded(snapshotDir)
     }
 
-    fun matchWithSnapshot(value: A, snapshotName: String? = null) {
+    fun matchWithSnapshot(value: Any?, snapshotName: String? = null) {
         val snapshotTestCaseName = if (snapshotName != null)
             TestCaseName(null, snapshotName)
         else
@@ -53,7 +53,7 @@ internal class Camera<in A>(
     private fun differsFromSnapshot(diffs: List<DiffMatchPatch.Diff>): Boolean =
         diffs.find { diff -> diff.operation != DiffMatchPatch.Operation.EQUAL } != null
 
-    private fun matchValueWithExistingSnapshot(snapshotFile: File, value: A) {
+    private fun matchValueWithExistingSnapshot(snapshotFile: File, value: Any?) {
         val snapshotContents = snapshotFile.readText()
         val valueString = serializationModule.serialize(value)
         val diffs = dmp.diffMain(snapshotContents, valueString)
@@ -66,7 +66,7 @@ internal class Camera<in A>(
         }
     }
 
-    private fun writeSnapshot(update: Boolean, snapshotFile: File, value: A) {
+    private fun writeSnapshot(update: Boolean, snapshotFile: File, value: Any?) {
         val serializedValue = serializationModule.serialize(value)
         snapshotFile.writeText(serializedValue)
         val fileName = "\"${snapshotFile.name}\""

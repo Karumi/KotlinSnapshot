@@ -7,12 +7,12 @@ import kotlin.reflect.KProperty1
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.memberProperties
 
-interface SerializationModule<in A> {
+interface SerializationModule {
 
-    fun serialize(value: A?): String
+    fun serialize(value: Any?): String
 }
 
-class KotlinSerialization : SerializationModule<Any> {
+class KotlinSerialization : SerializationModule {
 
     override fun serialize(value: Any?): String = when {
         value == null -> "null"
