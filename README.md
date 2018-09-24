@@ -59,7 +59,7 @@ $ cat __snapshot__/should\ fetch\ data\ from\ network.snap
 {"name":"gabriel","id":5}
 ```
 
-You can also configure `KotlinSnapshot` to group all snapshot files into a directory named after the test class:
+You can also configure `KotlinSnapshot` to group every snapshot file into a directory named using the test class name:
 
 ``` kotlin
 val kotlinSnapshot = KotlinSnapshot(relativePath = "src/test/kotlin/com/my/package", testClassAsDirectory = true)
