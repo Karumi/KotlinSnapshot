@@ -21,6 +21,10 @@ buildscript {
 }
 
 apply plugin: 'com.karumi.kotlin-snapshot'
+
+repositories {
+  maven { url 'https://jitpack.io' }
+}
 ```
 
 Invoke the extension function named ``matchWithSnapshot`` from any instance. The name of the snapshot is not mandatory, if you don't specify it as the first ``matchWithSnapshot`` param the library will infer it from the test execution context. Example:

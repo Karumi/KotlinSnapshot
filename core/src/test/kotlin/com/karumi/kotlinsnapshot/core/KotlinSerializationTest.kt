@@ -207,6 +207,22 @@ class KotlinSerializationTest {
         customSnap.matchWithSnapshot(localDate)
     }
 
+    @Test
+    fun `should serialize a complex map with any object inside including nested maps`() {
+        val anyComplexMap = mapOf<Any, Any>(
+            "string" to "pedro",
+            "int" to 11,
+            "long" to 111L,
+            "float" to 1111f,
+            "double" to 11111.0,
+            "user class" to User(2, "fran"),
+            "address class without user" to Address(PostCode(2), "Elm Street"),
+            "address class with user" to Address(PostCode(2), "Elm Street", User(9, "Sherlok"))
+        )
+        val anyComplexNestedMap = anyComplexMap.plus(Pair("complex map", anyComplexMap))
+        anyComplexNestedMap.matchWithSnapshot()
+    }
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
@@ -228,9 +244,12 @@ class KotlinSerializationTest {
 
         private val kotlinSerialization = KotlinSerialization()
 
-        override fun serialize(value: Any?): String = when {
-            value is LocalDate -> "custom serialization configured"
+        override fun serialize(value: Any?): String = when (value) {
+            is LocalDate -> "custom serialization configured"
             else -> kotlinSerialization.serialize(value)
         }
     }
+
+    data class PostCode(val value: Int)
+    data class Address(val postalCode: PostCode, val streetName: String, val user: User? = null)
 }

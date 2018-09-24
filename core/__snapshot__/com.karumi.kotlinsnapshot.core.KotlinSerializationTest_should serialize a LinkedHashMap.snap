@@ -1,1 +1,3 @@
-{mobile=Developer(githubStars=3, name=miguel), product=[User(id=1, name=gabriel)], sales=[User(id=1, name=ramon)]}
+{ mobile=Developer(githubStars=3, name=miguel),
+  product=[ User(id=1, name=gabriel) ],
+  sales=[ User(id=1, name=ramon) ] }

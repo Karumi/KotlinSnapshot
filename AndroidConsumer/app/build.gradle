@@ -16,6 +16,7 @@ apply plugin: 'com.karumi.kotlin-snapshot'
 
 repositories {
   maven { url uri('../../repo') }
+  maven { url 'https://jitpack.io' }
 }
 
 android {

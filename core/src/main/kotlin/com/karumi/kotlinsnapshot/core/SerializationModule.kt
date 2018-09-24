@@ -1,5 +1,6 @@
 package com.karumi.kotlinsnapshot.core
 
+import aballano.kotlinmemoization.memoize
 import java.time.ZoneId
 import java.time.temporal.Temporal
 import java.util.Date
@@ -14,18 +15,21 @@ interface SerializationModule {
 
 class KotlinSerialization : SerializationModule {
 
-    override fun serialize(value: Any?): String = when {
+    override fun serialize(value: Any?): String =
+        serializeObject(value, 0)
+
+    private fun serializeObject(value: Any?, depth: Int): String = when {
         value == null -> "null"
-        isPrimitive(value) -> value.toString()
-        value is CharSequence -> value.toString()
-        value::class.java.isEnum -> value.toString()
-        value is Iterable<*> -> iterableToString(value)
-        value is Array<*> -> iterableToString(value.toList())
-        value is Map<*, *> -> mapToString(value)
-        value is Pair<*, *> -> pairToString(value)
-        value is Date -> dateToString(value)
-        value is Temporal -> value.toString()
-        else -> toString(value)
+        isPrimitive(value) -> prependIndentation(value.toString(), depth)
+        value is CharSequence -> prependIndentation(value.toString(), depth)
+        value::class.java.isEnum -> prependIndentation(value.toString(), depth)
+        value is Iterable<*> -> iterableToString(value, depth)
+        value is Array<*> -> iterableToString(value.toList(), depth)
+        value is Map<*, *> -> mapToString(value, depth)
+        value is Pair<*, *> -> pairToString(value, depth)
+        value is Date -> prependIndentation(dateToString(value), depth)
+        value is Temporal -> prependIndentation(value.toString(), depth)
+        else -> prependIndentation(classToString(value), depth)
     }
 
     private fun dateToString(value: Date): String =
@@ -37,7 +41,7 @@ class KotlinSerialization : SerializationModule {
     private fun isPrimitive(value: Any) =
         value::class.javaPrimitiveType?.isPrimitive ?: false
 
-    private fun toString(value: Any): String {
+    private fun classToString(value: Any): String {
         val anyClass = value::class
         val className = anyClass.simpleName
         val fieldValueList = anyClass.memberProperties
@@ -49,19 +53,29 @@ class KotlinSerialization : SerializationModule {
         return "$className$classBody"
     }
 
-    private fun iterableToString(list: Iterable<*>): String =
-        list.joinToString(", ", "[", "]") {
-            serialize(it)
+    private fun iterableToString(list: Iterable<*>, depth: Int): String {
+        val blockIndent = computeIndent(depth)
+        val itemIndent = computeIndent(depth + 1)
+        return list.joinToString(",\n$itemIndent", "$blockIndent[ ", " ]") {
+            serializeObject(it, depth)
         }
+    }
 
-    private fun mapToString(map: Map<*, *>): String = map
-        .mapKeys { serialize(it.key) }
-        .toSortedMap()
-        .mapValues { serialize(it.value) }
-        .toString()
+    private fun mapToString(map: Map<*, *>, depth: Int): String {
+        val blockIndent = computeIndent(depth)
+        val itemIndent = computeIndent(depth + 1)
+        return map
+            .mapKeys { serializeObject(it.key, depth) }
+            .toSortedMap()
+            .toList()
+            .joinToString(",\n$itemIndent", "$blockIndent{ ", " }") { mapEntry ->
+                val serializedKey = mapEntry.first
+                "$serializedKey=${serializeObject(mapEntry.second, depth)}"
+            }
+    }
 
-    private fun pairToString(value: Pair<*, *>): String =
-        "(${serialize(value.first)}, ${serialize(value.second as Any)})"
+    private fun pairToString(value: Pair<*, *>, depth: Int): String =
+        prependIndentation("(${serialize(value.first)}, ${serialize(value.second as Any)})", depth)
 
     private fun getFieldValuePair(value: Any, field: KProperty1<out Any, Any?>): String =
         if (field.visibility == KVisibility.PUBLIC) {
@@ -77,4 +91,10 @@ class KotlinSerialization : SerializationModule {
         } else {
             ""
         }
+
+    private val computeIndent = { depth: Int -> (0..depth)
+        .joinToString("  ") { _ -> "" } }.memoize()
+
+    private fun prependIndentation(value: String, depth: Int): String =
+        "${computeIndent(depth)}$value"
 }
