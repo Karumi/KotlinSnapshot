@@ -70,7 +70,15 @@ class KotlinSerialization : SerializationModule {
             .toList()
             .joinToString(",\n$itemIndent", "$blockIndent{ ", " }") { mapEntry ->
                 val serializedKey = mapEntry.first
-                "$serializedKey=${serializeObject(mapEntry.second, depth)}"
+                val value = mapEntry.second
+                val serializedValue = serializeObject(mapEntry.second, depth)
+                if (needsNestedIndex(value)) {
+                    val nestedIndent = computeIndent((serializedKey.length / 2) + 2)
+                    val nestedSerializedValue = serializedValue.replace("\n", "\n$nestedIndent")
+                    "$serializedKey=$nestedSerializedValue"
+                } else {
+                    "$serializedKey=$serializedValue"
+                }
             }
     }
 
@@ -97,4 +105,11 @@ class KotlinSerialization : SerializationModule {
 
     private fun prependIndentation(value: String, depth: Int): String =
         "${computeIndent(depth)}$value"
+
+    private fun needsNestedIndex(value: Any?) = when (value) {
+        is Iterable<*> -> true
+        is Array<*> -> true
+        is Map<*, *> -> true
+        else -> false
+    }
 }

@@ -1,0 +1,3 @@
+[ User(id=1, name=davide),
+  [ [ Developer(githubStars=3, name=gabriel),
+  Developer(githubStars=1, name=fran) ] ] ]

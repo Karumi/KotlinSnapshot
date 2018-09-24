@@ -223,6 +223,32 @@ class KotlinSerializationTest {
         anyComplexNestedMap.matchWithSnapshot()
     }
 
+    @Test
+    fun `should serialize a three times nested map`() {
+        val anyComplexMap = mapOf<Any, Any>(
+            "user class" to User(2, "fran"),
+            "address class without user" to Address(PostCode(2), "Elm Street"),
+            "address class with user" to Address(PostCode(2), "Elm Street", User(9, "Sherlok"))
+        )
+        val anyComplexNestedMap = mapOf<Any, Any>(
+            "level 1 map " to anyComplexMap
+        )
+
+        val anyComplexNestedMapTwice = mapOf<Any, Any>(
+            "level 2 map " to anyComplexNestedMap
+        )
+        anyComplexNestedMapTwice.matchWithSnapshot()
+    }
+
+    @Test
+    fun `should serialize a three times nested list`() {
+        val anyNestedArray = arrayOf(User(1, "davide"),
+            arrayOf(arrayOf(Developer("gabriel", 3),
+                Developer("fran", 1))))
+
+        anyNestedArray.matchWithSnapshot()
+    }
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
