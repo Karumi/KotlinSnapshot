@@ -113,6 +113,23 @@ This project contains some tests written using JUnit. You can easily run the tes
 ./gradlew test --tests "com.xyz.b.module.TestClass.testToRun" //Run a single test
 ```
 
+## Customizing serializations
+
+KotlinSnapshot uses a custom serialization for the basic types. If for some reason you want to implement your custom serializer you can implement your own ``SerializationModule``. If you want to reuse part of the serialization we provide you can compose your serializer as follows:
+
+```kotlin
+class CustomKotlinSerialization : SerializationModule {
+
+        private val kotlinSerialization = KotlinSerialization()
+
+        override fun serialize(value: Any?): String = when {
+            value is LocalDate -> "custom serialization configured"
+            else -> kotlinSerialization.serialize(value)
+        }
+}
+
+```
+
 ### Sending your PR
 
 If you would like to contribute code to this repository you can do so through GitHub by creating a new branch in the repository and sending a pull request or opening an issue. Please, remember that there are some requirements you have to pass before accepting your contribution:
