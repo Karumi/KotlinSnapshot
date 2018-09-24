@@ -31,12 +31,17 @@ class InferenceNameSpec {
 }
 
 class InferenceNameNotSupported {
-    private val snap = Camera(KotlinSerialization(), TestCaseExtractorNotSupported)
+
+    private val snap = Camera(KotlinSerialization(), TestCaseExtractorNotSupported())
 
     @Test(expected = TestNameNotFoundException::class)
-    fun if_the_test_name_can_not_be_found_and_exception_will_be_thrown() {
+    fun if_the_test_name_can_not_be_found_an_exception_will_be_thrown() {
         val fran = Developer("Fran", 1)
         snap.matchWithSnapshot(fran)
+    }
+
+    private class TestCaseExtractorNotSupported : TestCaseExtractor() {
+        override fun getTestStackElement(): StackTraceElement? = null
     }
 }
 

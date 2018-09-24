@@ -9,7 +9,7 @@ internal class Camera<in A>(
     private val serializationModule: SerializationModule<A>,
     private val extractor: TestCaseExtractor,
     private val testClassAsDirectory: Boolean = false,
-    relativePath: String = ""
+    private val relativePath: String = ""
 ) {
     private val snapshotDir: File
     private val dmp = DiffMatchPatch()

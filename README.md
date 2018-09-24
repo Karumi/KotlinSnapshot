@@ -11,7 +11,7 @@ Snapshot testing is an assertion strategy based on the comparision of the instan
 Add our Gradle Plugin to your ```build.gradle``` file: 
 
 ``` gradle
-  buildscript {
+buildscript {
   repositories {
     mavenCentral()
   }
@@ -49,7 +49,7 @@ class NetworkTest {
 If you need to customize the snapshots folder path you can create an instance of `KotlinSnapshot` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and an `Any` object to be saved using its `toString()` implementation.
 
 ``` kotlin
-    val kotlinSnapshot = KotlinSnapshot(relativePath = "src/test/kotlin/com/my/package")
+val kotlinSnapshot = KotlinSnapshot(relativePath = "src/test/kotlin/com/my/package")
 ``` 
 
 After you run the test for the first time, a new snapshot will be written in the `__snapshot__` directory of the root of your project. The written snapshot for this example would look like this:
