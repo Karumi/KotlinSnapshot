@@ -63,7 +63,7 @@ test {
 
     testLogging {
         showStandardStreams = true
-        events = ["passed", "failed", "skipped"]
+        events = ["passed", "failed", "skipped", "standard_error", "standard_out"]
     }
 }
 
