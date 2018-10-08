@@ -1,1 +1,4 @@
-UserWithOptionalName(id=1, name=null)
+{
+  "class": "UserWithOptionalName",
+  "id": 1
+}

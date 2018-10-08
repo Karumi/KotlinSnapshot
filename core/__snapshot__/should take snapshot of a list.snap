@@ -1,1 +1,17 @@
-[User(id=1, name=gabriel), User(id=2, name=andres), User(id=3, name=miguel)]
+[
+  {
+    "class": "User",
+    "id": 1,
+    "name": "gabriel"
+  },
+  {
+    "class": "User",
+    "id": 2,
+    "name": "andres"
+  },
+  {
+    "class": "User",
+    "id": 3,
+    "name": "miguel"
+  }
+]

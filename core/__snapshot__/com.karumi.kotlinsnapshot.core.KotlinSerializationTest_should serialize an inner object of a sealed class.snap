@@ -1,1 +1,8 @@
-Request(isSuccess=false, networkError=InternalServerError(message=SQLException))
+{
+  "class": "Request",
+  "isSuccess": false,
+  "networkError": {
+    "class": "InternalServerError",
+    "message": "SQLException"
+  }
+}

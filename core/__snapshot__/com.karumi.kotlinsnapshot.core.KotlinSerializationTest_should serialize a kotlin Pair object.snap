@@ -1,1 +1,9 @@
-(1, User(id=1, name=gabriel))
+{
+  "class": "Pair",
+  "first": 1,
+  "second": {
+    "class": "User",
+    "id": 1,
+    "name": "gabriel"
+  }
+}

@@ -1,1 +1,17 @@
-[Developer(githubStars=3, name=gabriel), Developer(githubStars=3, name=andres), Developer(githubStars=3, name=miguel)]
+[
+  {
+    "class": "Developer",
+    "name": "gabriel",
+    "githubStars": 3
+  },
+  {
+    "class": "Developer",
+    "name": "andres",
+    "githubStars": 3
+  },
+  {
+    "class": "Developer",
+    "name": "miguel",
+    "githubStars": 3
+  }
+]

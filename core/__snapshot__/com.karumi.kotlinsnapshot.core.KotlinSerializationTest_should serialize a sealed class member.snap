@@ -1,1 +1,4 @@
-BadRequest(error=Body is required.)
+{
+  "class": "BadRequest",
+  "error": "Body is required."
+}

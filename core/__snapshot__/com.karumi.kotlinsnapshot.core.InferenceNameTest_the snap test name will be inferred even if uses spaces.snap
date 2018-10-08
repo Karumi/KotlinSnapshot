@@ -1,1 +1,5 @@
-Developer(name=Toni, yearsInTheCompany=1)
+{
+  "class": "Developer",
+  "name": "Toni",
+  "yearsInTheCompany": 1
+}

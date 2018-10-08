@@ -6,8 +6,7 @@ import org.junit.Test
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.Locale
-import java.util.TimeZone
+import java.util.*
 
 class KotlinSerializationTest {
 
@@ -95,7 +94,23 @@ class KotlinSerializationTest {
             "sales" to arrayOf(User(1, "ramon")),
             "mobile" to mobileTeam
         )
+
         snap.matchWithSnapshot(developerByTeam)
+    }
+
+    @Test
+    fun `should serialize a sorted complex map`() {
+        val mobileTeam = arrayOf(
+            Developer("gabriel", 3),
+            Developer("andres", 3),
+            Developer("miguel", 3)
+        )
+        val developerByTeam = mapOf(
+            "product" to listOf(User(1, "gabriel")),
+            "sales" to arrayOf(User(1, "ramon")),
+            "mobile" to mobileTeam
+        )
+
         snap.matchWithSnapshot(developerByTeam.toSortedMap())
     }
 
@@ -146,24 +161,35 @@ class KotlinSerializationTest {
     }
 
     @Test
-    fun `should serialize a LinkedHashMap`() {
+    fun `should serialize a regular map`() {
         val developerByTeamMap = mapOf(
             "product" to listOf(User(1, "gabriel")),
             "sales" to arrayOf(User(1, "ramon")),
             "mobile" to Developer("miguel", 3)
         )
+
+        snap.matchWithSnapshot(developerByTeamMap)
+    }
+
+    @Test
+    fun `should serialize a linked map`() {
         val developerByTeamLinked = linkedMapOf(
             "product" to listOf(User(1, "gabriel")),
             "sales" to arrayOf(User(1, "ramon")),
             "mobile" to Developer("miguel", 3)
         )
+
+        snap.matchWithSnapshot(developerByTeamLinked)
+    }
+
+    @Test
+    fun `should serialize a sorted map`() {
         val developerByTeamSorted = sortedMapOf(
             "product" to listOf(User(1, "gabriel")),
             "sales" to arrayOf(User(1, "ramon")),
             "mobile" to Developer("miguel", 3)
         )
-        snap.matchWithSnapshot(developerByTeamMap)
-        snap.matchWithSnapshot(developerByTeamLinked)
+
         snap.matchWithSnapshot(developerByTeamSorted)
     }
 

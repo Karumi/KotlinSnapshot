@@ -1,1 +1,6 @@
-2007-12-03
+{
+  "class": "LocalDate",
+  "year": 2007,
+  "month": 12,
+  "day": 3
+}

@@ -1,1 +1,5 @@
-[INT, DOUBLE, LONG]
+[
+  "INT",
+  "DOUBLE",
+  "LONG"
+]
