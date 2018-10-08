@@ -46,7 +46,7 @@ class NetworkTest {
 
 ```
 
-If you need to customize the snapshots folder path you can create an instance of `KotlinSnapshot` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and an `Any` object to be saved using its `toString()` implementation.
+If you need to customize the snapshots folder path you can create an instance of `KotlinSnapshot` in your test file and use the method `matchWithSnapshot`, which takes 2 arguments: A string with the name of the snapshot and an `Any` object to be saved using its json serialized version using a customized version of GSON.
 
 ``` kotlin
 val kotlinSnapshot = KotlinSnapshot(relativePath = "src/test/kotlin/com/my/package")
@@ -127,7 +127,19 @@ class CustomKotlinSerialization : SerializationModule {
             else -> kotlinSerialization.serialize(value)
         }
 }
+```
 
+Take into account that the ``KotlinSerialization`` class uses ``Gson`` under the hood. This class transforms your instances into json strings you can easily review when needed. On top of the json serialization we add some metadata really useful when serializing sealed hierarchies or objects. If for some reason you need to extend the serializer and use your own custom serializer also based on Gson you can do it as follows:
+
+```kotlin
+class CustomKotlinJsonSerialization: SerializationModule {
+
+        private val customGson = KotlinSerialization.gsonBuilder
+            .setDateFormat("yyyy-MM-dd")
+            .create()
+
+        override fun serialize(value: Any?): String = customGson.toJson(value)
+}
 ```
 
 ### Sending your PR

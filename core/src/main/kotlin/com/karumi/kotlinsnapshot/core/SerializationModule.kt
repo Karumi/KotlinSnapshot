@@ -13,11 +13,12 @@ class KotlinSerialization : SerializationModule {
     companion object {
         private const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
-        private val gson = GsonBuilder()
+        val gsonBuilder: GsonBuilder = GsonBuilder()
             .setPrettyPrinting()
             .setDateFormat(ISO_8601)
             .registerTypeAdapterFactory(RuntimeClassNameTypeAdapterFactory.of(Object::class.java))
-            .create()
+
+        private val gson = gsonBuilder.create()
     }
 
     override fun serialize(value: Any?): String =

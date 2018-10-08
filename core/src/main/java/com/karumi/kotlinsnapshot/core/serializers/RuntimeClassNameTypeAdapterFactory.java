@@ -1,4 +1,4 @@
-
+/* ktlint-disable */
 package com.karumi.kotlinsnapshot.core.serializers;
 
 import com.google.gson.*;
@@ -228,3 +228,4 @@ public final class RuntimeClassNameTypeAdapterFactory<T> implements TypeAdapterF
         }.nullSafe();
     }
 }
+/* ktlint-enable */
