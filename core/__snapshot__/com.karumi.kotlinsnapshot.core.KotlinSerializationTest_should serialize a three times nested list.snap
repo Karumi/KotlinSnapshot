@@ -1,0 +1,21 @@
+[
+  {
+    "class": "User",
+    "id": 1,
+    "name": "davide"
+  },
+  [
+    [
+      {
+        "class": "Developer",
+        "name": "gabriel",
+        "githubStars": 3
+      },
+      {
+        "class": "Developer",
+        "name": "fran",
+        "githubStars": 1
+      }
+    ]
+  ]
+]

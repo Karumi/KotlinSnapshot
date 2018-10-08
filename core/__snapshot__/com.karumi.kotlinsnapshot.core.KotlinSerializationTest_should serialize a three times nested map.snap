@@ -1,0 +1,35 @@
+{
+  "class": "SingletonMap",
+  "level 2 map ": {
+    "class": "SingletonMap",
+    "level 1 map ": {
+      "class": "LinkedHashMap",
+      "user class": {
+        "class": "User",
+        "id": 2,
+        "name": "fran"
+      },
+      "address class without user": {
+        "class": "Address",
+        "postalCode": {
+          "class": "PostCode",
+          "value": 2
+        },
+        "streetName": "Elm Street"
+      },
+      "address class with user": {
+        "class": "Address",
+        "postalCode": {
+          "class": "PostCode",
+          "value": 2
+        },
+        "streetName": "Elm Street",
+        "user": {
+          "class": "User",
+          "id": 9,
+          "name": "Sherlok"
+        }
+      }
+    }
+  }
+}

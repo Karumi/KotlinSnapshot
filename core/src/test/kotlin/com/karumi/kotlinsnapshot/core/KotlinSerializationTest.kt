@@ -233,6 +233,46 @@ class KotlinSerializationTest {
         customSnap.matchWithSnapshot(localDate)
     }
 
+    @Test
+    fun `should serialize a complex map with any object inside including nested maps`() {
+        val anyComplexMap = mapOf<Any, Any>(
+            "string" to "pedro",
+            "int" to 11,
+            "long" to 111L,
+            "float" to 1111f,
+            "double" to 11111.0,
+            "user class" to User(2, "fran"),
+            "address class without user" to Address(PostCode(2), "Elm Street"),
+            "address class with user" to Address(PostCode(2), "Elm Street", User(9, "Sherlok"))
+        )
+        val anyComplexNestedMap = anyComplexMap.plus(Pair("complex map", anyComplexMap))
+        anyComplexNestedMap.matchWithSnapshot()
+    }
+
+    @Test
+    fun `should serialize a three times nested map`() {
+        val anyComplexMap = mapOf<Any, Any>(
+            "user class" to User(2, "fran"),
+            "address class without user" to Address(PostCode(2), "Elm Street"),
+            "address class with user" to Address(PostCode(2), "Elm Street", User(9, "Sherlok"))
+        )
+        val anyComplexNestedMap = mapOf<Any, Any>(
+            "level 1 map " to anyComplexMap
+        )
+        val anyComplexNestedMapTwice = mapOf<Any, Any>(
+            "level 2 map " to anyComplexNestedMap
+        )
+        anyComplexNestedMapTwice.matchWithSnapshot()
+    }
+
+    @Test
+    fun `should serialize a three times nested list`() {
+        val anyNestedArray = arrayOf(User(1, "davide"),
+            arrayOf(arrayOf(Developer("gabriel", 3),
+                Developer("fran", 1))))
+        anyNestedArray.matchWithSnapshot()
+    }
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
@@ -259,4 +299,7 @@ class KotlinSerializationTest {
             else -> kotlinSerialization.serialize(value)
         }
     }
+
+    data class PostCode(val value: Int)
+    data class Address(val postalCode: PostCode, val streetName: String, val user: User? = null)
 }

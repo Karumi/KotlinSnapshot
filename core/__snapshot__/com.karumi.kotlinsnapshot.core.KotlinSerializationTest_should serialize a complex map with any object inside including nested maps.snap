@@ -1,0 +1,68 @@
+{
+  "class": "LinkedHashMap",
+  "string": "pedro",
+  "int": 11,
+  "long": 111,
+  "float": 1111.0,
+  "double": 11111.0,
+  "user class": {
+    "class": "User",
+    "id": 2,
+    "name": "fran"
+  },
+  "address class without user": {
+    "class": "Address",
+    "postalCode": {
+      "class": "PostCode",
+      "value": 2
+    },
+    "streetName": "Elm Street"
+  },
+  "address class with user": {
+    "class": "Address",
+    "postalCode": {
+      "class": "PostCode",
+      "value": 2
+    },
+    "streetName": "Elm Street",
+    "user": {
+      "class": "User",
+      "id": 9,
+      "name": "Sherlok"
+    }
+  },
+  "complex map": {
+    "class": "LinkedHashMap",
+    "string": "pedro",
+    "int": 11,
+    "long": 111,
+    "float": 1111.0,
+    "double": 11111.0,
+    "user class": {
+      "class": "User",
+      "id": 2,
+      "name": "fran"
+    },
+    "address class without user": {
+      "class": "Address",
+      "postalCode": {
+        "class": "PostCode",
+        "value": 2
+      },
+      "streetName": "Elm Street"
+    },
+    "address class with user": {
+      "class": "Address",
+      "postalCode": {
+        "class": "PostCode",
+        "value": 2
+      },
+      "streetName": "Elm Street",
+      "user": {
+        "class": "User",
+        "id": 9,
+        "name": "Sherlok"
+      }
+    }
+  }
+}
