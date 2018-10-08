@@ -3,7 +3,7 @@ package com.karumi.kotlinsnapshot.core
 import com.google.gson.GsonBuilder
 import com.karumi.kotlinsnapshot.core.serializers.RuntimeClassNameTypeAdapterFactory
 import com.karumi.kotlinsnapshot.serializers.GsonUTCDateAdapter
-import java.util.*
+import java.util.Date
 
 interface SerializationModule {
 

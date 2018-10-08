@@ -1,16 +1,17 @@
 package com.karumi.kotlinsnapshot.serializers
 
-import com.google.gson.*
-
+import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
 import java.lang.reflect.Type
 import java.text.DateFormat
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-class GsonUTCDateAdapter : JsonSerializer<Date>, JsonDeserializer<Date> {
+class GsonUTCDateAdapter : JsonSerializer<Date> {
 
     private val dateFormat: DateFormat
 
@@ -20,17 +21,10 @@ class GsonUTCDateAdapter : JsonSerializer<Date>, JsonDeserializer<Date> {
     }
 
     @Synchronized
-    override fun serialize(date: Date, type: Type, jsonSerializationContext: JsonSerializationContext): JsonElement {
-        return JsonPrimitive(dateFormat.format(date))
-    }
-
-    @Synchronized
-    override fun deserialize(jsonElement: JsonElement, type: Type, jsonDeserializationContext: JsonDeserializationContext): Date {
-        try {
-            return dateFormat.parse(jsonElement.asString)
-        } catch (e: ParseException) {
-            throw JsonParseException(e)
-        }
-
-    }
+    override fun serialize(
+        date: Date,
+        type: Type,
+        jsonSerializationContext: JsonSerializationContext
+    ): JsonElement =
+            JsonPrimitive(dateFormat.format(date))
 }
