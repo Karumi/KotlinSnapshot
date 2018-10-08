@@ -6,7 +6,8 @@ import org.junit.Test
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
+import java.util.TimeZone
+import java.util.Locale
 
 class KotlinSerializationTest {
 
