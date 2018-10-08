@@ -2,6 +2,8 @@ package com.karumi.kotlinsnapshot.core
 
 import com.google.gson.GsonBuilder
 import com.karumi.kotlinsnapshot.core.serializers.RuntimeClassNameTypeAdapterFactory
+import com.karumi.kotlinsnapshot.serializers.GsonUTCDateAdapter
+import java.util.*
 
 interface SerializationModule {
 
@@ -11,11 +13,10 @@ interface SerializationModule {
 class KotlinSerialization : SerializationModule {
 
     companion object {
-        private const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 
         val gsonBuilder: GsonBuilder = GsonBuilder()
             .setPrettyPrinting()
-            .setDateFormat(ISO_8601)
+            .registerTypeAdapter(Date::class.java, GsonUTCDateAdapter())
             .registerTypeAdapterFactory(RuntimeClassNameTypeAdapterFactory.of(Object::class.java))
 
         private val gson = gsonBuilder.create()
