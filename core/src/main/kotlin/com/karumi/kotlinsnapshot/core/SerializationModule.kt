@@ -11,7 +11,7 @@ interface SerializationModule {
 class KotlinSerialization : SerializationModule {
 
     companion object {
-        private const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSX"
+        private const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 
         val gsonBuilder: GsonBuilder = GsonBuilder()
             .setPrettyPrinting()
