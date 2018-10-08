@@ -142,6 +142,12 @@ class CustomKotlinJsonSerialization: SerializationModule {
 }
 ```
 
+### Changelog
+
+#### 3.0.0 Improve the serialization format:
+
+* We've replaced the old serialization format with a custom JSON format letting the user review the snapshots easily and unify the format. **If you update the library to a 3.X version or greater you'll have to record all your tests again.**
+
 ### Sending your PR
 
 If you would like to contribute code to this repository you can do so through GitHub by creating a new branch in the repository and sending a pull request or opening an issue. Please, remember that there are some requirements you have to pass before accepting your contribution:
