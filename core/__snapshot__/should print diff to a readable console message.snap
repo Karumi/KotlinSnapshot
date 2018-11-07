@@ -1,1 +1,9 @@
-"\u001b[31mReceived value\u001b[0m does not match \u001b[32mstored snapshot: \"should print diff to a readable console message\"\u001b[0m\n\n\u001b[32m-Snapshot\u001b[0m\n\u001b[31m+Received\u001b[0m\n\n {\"name\":\"\n\u001b[32m- gabriel\n\u001b[0m\u001b[31m+ andres\n\u001b[0m \",\"id\":5}\n"
+[31mReceived value[0m does not match [32mstored snapshot: "should print diff to a readable console message"[0m
+
+[32m-Snapshot[0m
+[31m+Received[0m
+
+ {"name":"
+[32m- gabriel
+[0m[31m+ andres
+[0m ","id":5}

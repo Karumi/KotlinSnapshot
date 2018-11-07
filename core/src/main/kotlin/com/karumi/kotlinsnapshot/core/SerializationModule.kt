@@ -3,7 +3,7 @@ package com.karumi.kotlinsnapshot.core
 import com.google.gson.GsonBuilder
 import com.karumi.kotlinsnapshot.core.serializers.RuntimeClassNameTypeAdapterFactory
 import com.karumi.kotlinsnapshot.serializers.GsonUTCDateAdapter
-import java.util.Date
+import java.util.*
 
 interface SerializationModule {
 
@@ -22,6 +22,9 @@ class KotlinSerialization : SerializationModule {
         private val gson = gsonBuilder.create()
     }
 
-    override fun serialize(value: Any?): String =
-        gson.toJson(value)
+    override fun serialize(value: Any?): String = when (value) {
+        is String -> value
+        else -> gson.toJson(value)
+    }
+
 }
