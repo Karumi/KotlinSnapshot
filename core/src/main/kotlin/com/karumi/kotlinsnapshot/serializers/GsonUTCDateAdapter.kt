@@ -16,7 +16,7 @@ class GsonUTCDateAdapter : JsonSerializer<Date> {
     private val dateFormat: DateFormat
 
     init {
-        dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+        dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US)
         dateFormat.timeZone = TimeZone.getTimeZone("UTC")
     }
 
