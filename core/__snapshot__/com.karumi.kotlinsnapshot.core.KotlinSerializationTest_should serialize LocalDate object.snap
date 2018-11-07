@@ -1,5 +1,5 @@
 {
-  "class": "LocalDate",
+  "__class__": "LocalDate",
   "year": 2007,
   "month": 12,
   "day": 3

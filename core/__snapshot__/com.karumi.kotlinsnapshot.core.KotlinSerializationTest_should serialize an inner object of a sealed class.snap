@@ -1,8 +1,8 @@
 {
-  "class": "Request",
+  "__class__": "Request",
   "isSuccess": false,
   "networkError": {
-    "class": "InternalServerError",
+    "__class__": "InternalServerError",
     "message": "SQLException"
   }
 }

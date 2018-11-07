@@ -1,16 +1,16 @@
 [
   {
-    "class": "Developer",
+    "__class__": "Developer",
     "name": "gabriel",
     "githubStars": 3
   },
   {
-    "class": "Developer",
+    "__class__": "Developer",
     "name": "andres",
     "githubStars": 3
   },
   {
-    "class": "Developer",
+    "__class__": "Developer",
     "name": "miguel",
     "githubStars": 3
   }

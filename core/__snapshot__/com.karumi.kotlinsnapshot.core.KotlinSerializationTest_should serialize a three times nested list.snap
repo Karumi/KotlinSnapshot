@@ -1,18 +1,18 @@
 [
   {
-    "class": "User",
+    "__class__": "User",
     "id": 1,
     "name": "davide"
   },
   [
     [
       {
-        "class": "Developer",
+        "__class__": "Developer",
         "name": "gabriel",
         "githubStars": 3
       },
       {
-        "class": "Developer",
+        "__class__": "Developer",
         "name": "fran",
         "githubStars": 1
       }

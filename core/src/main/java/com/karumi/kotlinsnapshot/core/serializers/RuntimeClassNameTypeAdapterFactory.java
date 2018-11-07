@@ -1,4 +1,3 @@
-/* ktlint-disable */
 package com.karumi.kotlinsnapshot.core.serializers;
 
 import com.google.gson.*;
@@ -104,6 +103,7 @@ import java.util.Map;
  * }</pre>
  */
 public final class RuntimeClassNameTypeAdapterFactory<T> implements TypeAdapterFactory {
+    private static final String TYPE_JSON_KEY_NAME = "__class__";
     private final Class<?> baseType;
     private final String typeFieldName;
     private final Map<String, Class<?>> labelToSubtype = new LinkedHashMap<String, Class<?>>();
@@ -130,7 +130,7 @@ public final class RuntimeClassNameTypeAdapterFactory<T> implements TypeAdapterF
      * the type field name.
      */
     public static <T> RuntimeClassNameTypeAdapterFactory<T> of(Class<T> baseType) {
-        return new RuntimeClassNameTypeAdapterFactory<T>(baseType, "class");
+        return new RuntimeClassNameTypeAdapterFactory<T>(baseType, TYPE_JSON_KEY_NAME);
     }
 
     /**
@@ -173,7 +173,7 @@ public final class RuntimeClassNameTypeAdapterFactory<T> implements TypeAdapterF
 
         if (Object.class.isAssignableFrom(type.getRawType())) {
             TypeAdapter<?> delegate = gson.getDelegateAdapter(this, type);
-            labelToDelegate.put("class", delegate);
+            labelToDelegate.put("__class__", delegate);
             subtypeToDelegate.put(type.getRawType(), delegate);
         }
 
@@ -228,4 +228,3 @@ public final class RuntimeClassNameTypeAdapterFactory<T> implements TypeAdapterF
         }.nullSafe();
     }
 }
-/* ktlint-enable */

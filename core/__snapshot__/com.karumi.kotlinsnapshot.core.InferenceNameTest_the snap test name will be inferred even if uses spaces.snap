@@ -1,5 +1,5 @@
 {
-  "class": "Developer",
+  "__class__": "Developer",
   "name": "Toni",
   "yearsInTheCompany": 1
 }

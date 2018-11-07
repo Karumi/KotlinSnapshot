@@ -1,32 +1,32 @@
 {
-  "class": "LinkedHashMap",
+  "__class__": "LinkedHashMap",
   "product": [
     {
-      "class": "User",
+      "__class__": "User",
       "id": 1,
       "name": "gabriel"
     }
   ],
   "sales": [
     {
-      "class": "User",
+      "__class__": "User",
       "id": 1,
       "name": "ramon"
     }
   ],
   "mobile": [
     {
-      "class": "Developer",
+      "__class__": "Developer",
       "name": "gabriel",
       "githubStars": 3
     },
     {
-      "class": "Developer",
+      "__class__": "Developer",
       "name": "andres",
       "githubStars": 3
     },
     {
-      "class": "Developer",
+      "__class__": "Developer",
       "name": "miguel",
       "githubStars": 3
     }

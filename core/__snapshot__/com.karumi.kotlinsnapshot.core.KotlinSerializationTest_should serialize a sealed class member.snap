@@ -1,4 +1,4 @@
 {
-  "class": "BadRequest",
+  "__class__": "BadRequest",
   "error": "Body is required."
 }

@@ -1,4 +1,4 @@
 {
-  "class": "UserWithOptionalName",
+  "__class__": "UserWithOptionalName",
   "id": 1
 }

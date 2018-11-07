@@ -1,16 +1,16 @@
 [
   {
-    "class": "User",
+    "__class__": "User",
     "id": 1,
     "name": "gabriel"
   },
   {
-    "class": "User",
+    "__class__": "User",
     "id": 2,
     "name": "andres"
   },
   {
-    "class": "User",
+    "__class__": "User",
     "id": 3,
     "name": "miguel"
   }

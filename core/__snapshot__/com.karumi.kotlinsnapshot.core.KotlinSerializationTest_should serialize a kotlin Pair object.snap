@@ -1,8 +1,8 @@
 {
-  "class": "Pair",
+  "__class__": "Pair",
   "first": 1,
   "second": {
-    "class": "User",
+    "__class__": "User",
     "id": 1,
     "name": "gabriel"
   }

@@ -1,13 +1,13 @@
 {
-  "class": "LocalDateTime",
+  "__class__": "LocalDateTime",
   "date": {
-    "class": "LocalDate",
+    "__class__": "LocalDate",
     "year": 2007,
     "month": 12,
     "day": 3
   },
   "time": {
-    "class": "LocalTime",
+    "__class__": "LocalTime",
     "hour": 10,
     "minute": 15,
     "second": 30,

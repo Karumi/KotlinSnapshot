@@ -1,20 +1,20 @@
 {
-  "class": "TreeMap",
+  "__class__": "TreeMap",
   "mobile": {
-    "class": "Developer",
+    "__class__": "Developer",
     "name": "miguel",
     "githubStars": 3
   },
   "product": [
     {
-      "class": "User",
+      "__class__": "User",
       "id": 1,
       "name": "gabriel"
     }
   ],
   "sales": [
     {
-      "class": "User",
+      "__class__": "User",
       "id": 1,
       "name": "ramon"
     }

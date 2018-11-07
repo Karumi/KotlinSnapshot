@@ -1,7 +1,7 @@
 {
-  "class": "Request",
+  "__class__": "Request",
   "isSuccess": false,
   "networkError": {
-    "class": "NotFound"
+    "__class__": "NotFound"
   }
 }
