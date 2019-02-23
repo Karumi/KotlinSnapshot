@@ -7,3 +7,6 @@ core/out
 repo
 .project
 .settings
+
+**/out
+**/build
