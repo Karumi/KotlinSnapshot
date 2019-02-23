@@ -5,7 +5,7 @@ import java.lang.reflect.Method
 internal open class TestCaseExtractor {
 
     companion object {
-        private const val TEST_ANNOTATION = "org.junit.Test"
+        private val TEST_ANNOTATION_EXPRESSION = Regex("org.junit(?s)(.*).Test")
     }
 
     open fun getTestStackElement(): StackTraceElement? {
@@ -22,5 +22,7 @@ internal open class TestCaseExtractor {
     }
 
     private fun isTestMethod(method: Method): Boolean =
-        method.annotations.any { TEST_ANNOTATION == it.annotationClass.qualifiedName }
+        method.annotations.any {
+            it.annotationClass.qualifiedName?.matches(TEST_ANNOTATION_EXPRESSION) ?: false
+        }
 }

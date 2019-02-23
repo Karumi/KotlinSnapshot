@@ -34,7 +34,9 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.bitbucket.cowwoc.diff-match-patch:diff-match-patch:1.0"
     compile "com.google.code.gson:gson:2.8.5"
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.2.0'
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.2.0"
+    testRuntime "org.junit.vintage:junit-vintage-engine:5.2.0"
 }
 
 apply plugin: 'maven'
@@ -65,6 +67,8 @@ test {
         showStandardStreams = true
         events = ["passed", "failed", "skipped", "standard_error", "standard_out"]
     }
+
+    useJUnitPlatform()
 }
 
 task ktlint(type: JavaExec, group: "verification") {
