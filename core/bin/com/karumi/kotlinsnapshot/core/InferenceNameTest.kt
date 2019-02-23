@@ -7,8 +7,7 @@ import org.junit.Test
 class InferenceNameTest {
 
     @Test
-    fun the_snap_test_name_will_be_inferred_in_test_cases_named_with_test_if_it_is_not_specified(
-    ) {
+    fun the_snap_test_name_will_be_inferred_in_test_cases_named_with_test_if_it_is_not_specified() {
         val pedro = Developer("Pedro", 3)
         pedro.matchWithSnapshot()
     }
@@ -23,8 +22,7 @@ class InferenceNameTest {
 class InferenceNameSpec {
 
     @Test
-    fun the_snap_test_name_will_be_inferred_in_test_cases_named_with_spec_if_it_is_not_specified(
-    ) {
+    fun the_snap_test_name_will_be_inferred_in_test_cases_named_with_spec_if_it_is_not_specified() {
         val sergio = Developer("Sergio", 2)
         sergio.matchWithSnapshot()
     }
