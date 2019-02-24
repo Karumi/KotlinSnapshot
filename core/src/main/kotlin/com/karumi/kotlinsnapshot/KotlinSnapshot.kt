@@ -28,13 +28,13 @@ class KotlinSnapshot(
         snapshotsFolder
     )
 
-    fun matchWithSnapshot(value: Any, snapshotName: String? = null) {
+    fun matchWithSnapshot(value: Any?, snapshotName: String? = null) {
         camera.matchWithSnapshot(value, snapshotName)
     }
 }
 
 private val camera = Camera(KotlinSerialization(), TestCaseExtractor())
 
-fun Any.matchWithSnapshot(snapshotName: String? = null) {
+fun Any?.matchWithSnapshot(snapshotName: String? = null) {
     camera.matchWithSnapshot(this, snapshotName)
 }

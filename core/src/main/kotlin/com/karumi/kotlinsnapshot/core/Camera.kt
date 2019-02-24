@@ -62,7 +62,7 @@ internal class Camera(
             writeSnapshot(true, snapshotFile, value)
         else if (hasChanged) {
             val msg = DiffPrinter.toReadableConsoleMessage(snapshotFile.name, diffs)
-            throw SnapshotException(diffs, msg)
+            throw SnapshotException(diffs, msg, snapshotContents, valueString)
         }
     }
 

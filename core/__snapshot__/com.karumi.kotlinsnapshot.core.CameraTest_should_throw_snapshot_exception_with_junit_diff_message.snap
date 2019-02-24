@@ -1,0 +1,8 @@
+[31mReceived value[0m does not match [32mstored snapshot: "should throw snapshot exception when not match.snap"[0m
+
+[32m-Snapshot[0m
+[31m+Received[0m
+
+ will not match
+[32m-  ;)
+[0m expected:<will not match[ ;)]> but was:<will not match[]>

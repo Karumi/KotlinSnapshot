@@ -274,6 +274,11 @@ class KotlinSerializationTest {
         anyNestedArray.matchWithSnapshot()
     }
 
+    @Test
+    fun `should serialize null values`() {
+        snap.matchWithSnapshot(null)
+    }
+
     enum class Primitives { INT, DOUBLE, LONG }
 
     class User(val id: Int, val name: String)
