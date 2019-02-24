@@ -144,9 +144,11 @@ class CustomKotlinJsonSerialization: SerializationModule {
 
 ### Changelog
 
-#### 2.1.0 Improve the serialization format:
+#### 2.1.0 Diff files viewer and JUnit5 support:
 
-* Support for nullable types.**
+* Nullable types in the matchWithSnapshot function extension.
+* Support Intellj Idea diff files viewer when tests fail.
+* Support JUnit 5 tests.
 
 #### 2.0.0 Improve the serialization format:
 
