@@ -47,7 +47,7 @@ class CameraTest {
         val nullString: String? = null
         nullString.matchWithSnapshot("should take snapshots of null values")
     }
-  
+
     @Test(expected = SnapshotException::class)
     fun should_throw_snapshot_exception_when_not_match() {
         WILL_NOT_MATCH.matchWithSnapshot("should throw snapshot exception when not match")
@@ -61,5 +61,5 @@ class CameraTest {
         } catch (snapshotException: SnapshotException) {
             snapshotException.message!!.matchWithSnapshot()
         }
-    } 
+    }
 }
