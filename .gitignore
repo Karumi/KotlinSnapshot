@@ -10,3 +10,4 @@ repo
 
 **/out
 **/build
+.gradletasknamecache
