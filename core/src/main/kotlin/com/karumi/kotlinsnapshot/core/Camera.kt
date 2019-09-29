@@ -54,7 +54,8 @@ internal class Camera(
         diffs.find { diff -> diff.operation != DiffMatchPatch.Operation.EQUAL } != null
 
     private fun matchValueWithExistingSnapshot(snapshotFile: File, value: Any?) {
-        val snapshotContents = snapshotFile.readText()
+        val rawSnapshotContents = snapshotFile.readText()
+        val snapshotContents = replaceWindowsLineEndings(rawSnapshotContents)
         val valueString = serializationModule.serialize(value)
         val diffs = dmp.diffMain(snapshotContents, valueString)
         val hasChanged = differsFromSnapshot(diffs)
@@ -64,6 +65,10 @@ internal class Camera(
             val msg = DiffPrinter.toReadableConsoleMessage(snapshotFile.name, diffs)
             throw SnapshotException(diffs, msg, snapshotContents, valueString)
         }
+    }
+
+    private fun replaceWindowsLineEndings(string: String): String {
+        return string.replace(Regex("\\r\\n"), "\n")
     }
 
     private fun writeSnapshot(update: Boolean, snapshotFile: File, value: Any?) {
