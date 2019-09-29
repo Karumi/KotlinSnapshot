@@ -62,4 +62,12 @@ class CameraTest {
             snapshotException.message!!.matchWithSnapshot()
         }
     }
+
+    @Test
+    fun should_not_throw_snapshot_exception_because_of_Windows_line_endings() {
+        val stringWithWindowsLineEndings = "Line 1\nLine 2\n"
+        stringWithWindowsLineEndings.matchWithSnapshot(
+            "should not throw snapshot exception because of Windows line endings"
+        )
+    }
 }
