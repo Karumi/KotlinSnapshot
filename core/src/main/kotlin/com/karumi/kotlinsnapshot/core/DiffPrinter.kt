@@ -8,21 +8,22 @@ internal object DiffPrinter {
 
     private fun printDiff(diff: DiffMatchPatch.Diff): String =
         when (diff.operation) {
-            DiffMatchPatch.Operation.EQUAL, null -> " ${diff.text}\n"
-            DiffMatchPatch.Operation.DELETE -> Term.green("- ${diff.text}\n")
-            DiffMatchPatch.Operation.INSERT -> Term.red("+ ${diff.text}\n")
+            DiffMatchPatch.Operation.EQUAL, null -> Term.white(" ${diff.text}\n")
+            DiffMatchPatch.Operation.DELETE -> Term.red("- ${diff.text}\n")
+            DiffMatchPatch.Operation.INSERT -> Term.green("+ ${diff.text}\n")
         }
 
     fun toReadableConsoleMessage(
         snapshotName: String,
         diffs: LinkedList<DiffMatchPatch.Diff>
     ): String {
-        val sb = StringBuilder("${Term.red("Received value")} does not match ${
-        Term.green("stored snapshot: \"$snapshotName\"")}\n\n${
-        Term.green("-Snapshot")}\n${Term.red("+Received")}\n\n")
+        val sb = StringBuilder(
+            "Received value does not match stored snapshot: \"$snapshotName\"\n\n"
+        )
 
         dmp.diffCleanupSemantic(diffs)
         diffs.forEach { diff -> sb.append(printDiff(diff)) }
+        sb.append("\n\n")
         return sb.toString()
     }
 }
