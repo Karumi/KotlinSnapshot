@@ -67,9 +67,7 @@ internal class Camera(
         }
     }
 
-    private fun replaceWindowsLineEndings(string: String): String {
-        return string.replace(Regex("\\r\\n"), "\n")
-    }
+    private fun replaceWindowsLineEndings(string: String) = string.replace(Regex("\\r\\n"), "\n")
 
     private fun writeSnapshot(update: Boolean, snapshotFile: File, value: Any?) {
         val serializedValue = serializationModule.serialize(value)
