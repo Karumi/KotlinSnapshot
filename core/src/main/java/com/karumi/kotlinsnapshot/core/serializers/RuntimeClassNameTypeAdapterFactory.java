@@ -171,12 +171,13 @@ public final class RuntimeClassNameTypeAdapterFactory<T> implements TypeAdapterF
                 = new LinkedHashMap<>();
 
 
-        if (Object.class.isAssignableFrom(type.getRawType())) {
+        Class<? super R> rawType = type.getRawType();
+        if (Object.class.isAssignableFrom(rawType)) {
             TypeAdapter<?> delegate = gson.getDelegateAdapter(this, type);
             labelToDelegate.put("__class__", delegate);
-            subtypeToDelegate.put(type.getRawType(), delegate);
+            subtypeToDelegate.put(rawType, delegate);
         }
-
+        TypeAdapterFactory factory = this;
 
         return new TypeAdapter<R>() {
             @Override
@@ -204,9 +205,19 @@ public final class RuntimeClassNameTypeAdapterFactory<T> implements TypeAdapterF
                 String label = srcType.getSimpleName();
                 @SuppressWarnings("unchecked") // registration requires that subtype extends T
                         TypeAdapter<R> delegate = (TypeAdapter<R>) subtypeToDelegate.get(srcType);
+                // Types declared using the interface but provided in runtime using a specific implementation may not be
+                // declared on the delegates we saved before so we need to add it to the delegates' list using the
+                // implementation type provided on runtime and not
                 if (delegate == null) {
-                    throw new JsonParseException("cannot serialize " + srcType.getName()
-                            + "; did you forget to register a subtype?");
+                    TypeToken<?> typeToken = TypeToken.get(srcType);
+                    TypeAdapter<?> implementationDelegate = gson.getDelegateAdapter(factory, typeToken);
+                    labelToDelegate.put("__class__", implementationDelegate);
+                    subtypeToDelegate.put(srcType, implementationDelegate);
+                    delegate = (TypeAdapter<R>) subtypeToDelegate.get(srcType);
+                }
+
+                if (delegate == null) {
+                    throw new JsonParseException("cannot serialize " + srcType.getName() + "; did you forget to register a subtype?");
                 }
                 JsonElement jsonTree = delegate.toJsonTree(value);
                 if (jsonTree.isJsonPrimitive() || jsonTree.isJsonArray()) {

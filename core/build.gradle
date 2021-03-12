@@ -33,7 +33,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation "org.bitbucket.cowwoc.diff-match-patch:diff-match-patch:1.0"
-    implementation "com.google.code.gson:gson:2.8.5"
+    implementation "com.google.code.gson:gson:2.8.6"
     implementation  group: 'junit', name: 'junit', version: '4.12'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.2.0'
     testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.2.0'
